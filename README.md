@@ -28,5 +28,5 @@ All the code is tested with the unittest module.
 The test for the classes are inthetest_models folder.
 
 ## Authors
-- [Abayomi Adebayo](https://www.github.com/Abayomi)
+- [Martins Abayomi Adebayo](https://github.com/Hilerioluwa12)
 - [Wasiu Ogunkoya](https://www.github.com/Ogunkoya)
