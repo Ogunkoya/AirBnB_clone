@@ -9,8 +9,15 @@ import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
 
-current_classes = {'BaseModel': BaseModel, 'User': User}
+classes = {'BaseModel': BaseModel, 'User': User,
+           'Amenity': Amenity, 'Place': Place,
+           'City': City, 'State': State, 'Reveiw': Review}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -81,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         if not validate_classname(args):
             return
 
-        new_obj = current_classes[args[0]]()
+        new_obj = classes[args[0]]()
         new_obj.save()
         print(new_obj.id)
 
@@ -126,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in current_classes.keys():
+        if args[0] not in classes.keys():
             print("** class doesn't exist **")
             return
         else:
@@ -177,7 +184,7 @@ def validate_classname(args, check_id=False):
     if len(args) < 1:
         print("** class name missing **")
         return False
-    if args[0] not in current_classes.keys():
+    if args[0] not in classes.keys():
         print("** class doesn't exist **")
         return False
     if len(args) < 2 and check_id:
