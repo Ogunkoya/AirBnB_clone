@@ -1,6 +1,0 @@
-<<<<<<< HEAD
-{"BaseModel.1b72d9b5-fc5f-40f4-8333-88a717b2d1ef": {"id": "1b72d9b5-fc5f-40f4-8333-88a717b2d1ef", "created_at": "2022-11-27T04:25:28.261472", "updated_at": "2022-11-27T04:25:28.353742", "name": "My_First_Model", "my_number": 89, "__class__": "BaseModel"}}
-=======
-{"BaseModel.3026bb17-153f-4b0f-8d2c-6833681312af": {"id": "3026bb17-153f-4b0f-8d2c-6833681312af", "created_at": "2022-11-25T05:59:35.556279", "updated_at": "2022-11-25T05:59:35.556279", "__class__": "BaseModel"}, "BaseModel.8491aedf-0fc7-42d9-aba9-d59986c9e5cd": {"id": "8491aedf-0fc7-42d9-aba9-d59986c9e5cd", "created_at": "2022-11-26T02:28:47.982119", "updated_at": "2022-11-26T02:28:47.982469", "__class__": "BaseModel"}, "User.8ca85b48-b9b4-4384-968c-13ba12356eb6": {"id": "8ca85b48-b9b4-4384-968c-13ba12356eb6", "created_at": "2022-11-27T04:26:21.422472", "updated_at": "2022-11-27T04:26:21.422862", "__class__": "User"}}
-
->>>>>>> 73fdde8199b80cd452a167728c46d17b340c5376
