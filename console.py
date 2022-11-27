@@ -13,21 +13,13 @@ from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
 
-current_classes = {'BaseModel': BaseModel, 'User': User,
-                   'Amenity': Amenity, 'City': City, 'State': State,
-                   'Place': Place, 'Review': Review}
+classes = {'BaseModel': BaseModel, 'User': User,
+           'Amenity': Amenity, 'City': City, 'State': State,
+           'Place': Place, 'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
     """The command interpreter.
-
-    This class represents the command interpreter, and the control center
-    of this project. It defines function handlers for all commands inputted
-    in the console and calls the appropriate storage engine APIs to manipulate
-    application data / models.
-
-    It sub-classes Python's `cmd.Cmd` class which provides a simple framework
-    for writing line-oriented command interpreters.
     """
 
     prompt = "(hbnb) "
@@ -98,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         if not validate_classname(args):
             return
 
-        new_obj = current_classes[args[0]]()
+        new_obj = classes[args[0]]()
         new_obj.save()
         print(new_obj.id)
 
@@ -143,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in current_classes.keys():
+        if args[0] not in classes.keys():
             print("** class doesn't exist **")
             return
         else:
@@ -194,7 +186,7 @@ def validate_classname(args, check_id=False):
     if len(args) < 1:
         print("** class name missing **")
         return False
-    if args[0] not in current_classes.keys():
+    if args[0] not in classes.keys():
         print("** class doesn't exist **")
         return False
     if len(args) < 2 and check_id:
