@@ -59,7 +59,7 @@ class TestBaseModelDocs(unittest.TestCase):
 class TestBaseModel(unittest.TestCase):
     """Test the BaseModel class"""
 
-    @mock.patch('models.storage')\
+    @mock.patch('models.storage')
     def test_instantiation(self, mock_storage):
         """Test that object is correctly created"""
         inst = BaseModel()
@@ -119,12 +119,12 @@ class TestBaseModel(unittest.TestCase):
         my_model.name = "Holberton"
         my_model.my_number = 89
         d = my_model.to_dict()
-        expected_attrs = ["id", 
-                "created_at", 
-                "updated_at", 
-                "name", 
-                "my_number", 
-                "__class__"]
+        expected_attrs = ["id",
+                          "created_at",
+                          "updated_at",
+                          "name",
+                          "my_number",
+                          "__class__"]
         self.assertCountEqual(d.keys(), expected_attrs)
         self.assertEqual(d['__class__'], 'BaseModel')
         self.assertEqual(d['name'], "Holberton")

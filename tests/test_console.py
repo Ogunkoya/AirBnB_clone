@@ -10,7 +10,6 @@ class TestConsoleClass(unittest.TestCase):
     Args:
         unittest (): Propertys for unit testing
     """
-    
     def test_func(self):
         """To test" func"""
         pass
