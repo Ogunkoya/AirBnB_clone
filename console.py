@@ -1,33 +1,64 @@
 #!/usr/bin/python3
-"""
-This is the  console basefor the unit
-"""
+"""This module defines the entry point of the command interpreter.
 
+It defines one class, `HBNBCommand()`, which sub-classes the `cmd.Cmd` class.
+This module defines abstractions that allows us to manipulate a powerful
+storage system (FileStorage / DB). This abstraction will also allow us to
+change the type of storage easily without updating all of our codebase.
+
+It allows us to interactively and non-interactively:
+    - create a data model
+    - manage (create, update, destroy, etc) objects via a console / interpreter
+    - store and persist objects to a file (JSON file)
+
+Typical usage example:
+
+    $ ./console
+    (hbnb)
+
+    (hbnb) help
+    Documented commands (type help <topic>):
+    ========================================
+    EOF  create  help  quit
+
+    (hbnb)
+    (hbnb) quit
+    $
+"""
 import re
 import cmd
 import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
 from models.city import City
+from models.review import Review
 from models.amenity import Amenity
 from models.place import Place
-from models.review import Review
-from models.state import State
 
-classes = {'BaseModel': BaseModel, 'User': User,
-           'Amenity': Amenity, 'Place': Place,
-           'City': City, 'State': State, 'Reveiw': Review}
+current_classes = {'BaseModel': BaseModel, 'User': User,
+                   'Amenity': Amenity, 'City': City, 'State': State,
+                   'Place': Place, 'Review': Review}
 
 
 class HBNBCommand(cmd.Cmd):
-    """Holberton command pormpt to access models date
+    """The command interpreter.
+
+    This class represents the command interpreter, and the control center
+    of this project. It defines function handlers for all commands inputted
+    in the console and calls the appropriate storage engine APIs to manipulate
+    application data / models.
+
+    It sub-classes Python's `cmd.Cmd` class which provides a simple framework
+    for writing line-oriented command interpreters.
     """
+
     prompt = "(hbnb) "
 
     def precmd(self, line):
         """Defines instructions to execute before <line> is interpreted.
-       """
+        """
         if not line:
             return '\n'
 
@@ -69,16 +100,19 @@ class HBNBCommand(cmd.Cmd):
         return super().do_help(arg)
 
     def do_EOF(self, line):
-        """Close program and saves safely data, when user input is CTRL + D"""
+        """Inbuilt EOF command to gracefully catch errors.
+        """
         print("")
         return True
 
     def do_quit(self, arg):
-        """Close program and saves safetly data"""
+        """Quit command to exit the program.
+        """
         return True
 
     def emptyline(self):
-        """ Does not perform any action """
+        """Override default `empty line + return` behaviour.
+        """
         pass
 
     def do_create(self, arg):
@@ -88,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         if not validate_classname(args):
             return
 
-        new_obj = classes[args[0]]()
+        new_obj = current_classes[args[0]]()
         new_obj.save()
         print(new_obj.id)
 
@@ -133,12 +167,12 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in classes.keys():
+        if args[0] not in current_classes.keys():
             print("** class doesn't exist **")
             return
         else:
-            print(["{}".format(str(v)) for _, v in
-                  all_objs.items() if type(v).__name__ == args[0]])
+            print(["{}".format(str(v))
+                  for _, v in all_objs.items() if type(v).__name__ == args[0]])
             return
 
     def do_update(self, arg: str):
@@ -184,7 +218,7 @@ def validate_classname(args, check_id=False):
     if len(args) < 1:
         print("** class name missing **")
         return False
-    if args[0] not in classes.keys():
+    if args[0] not in current_classes.keys():
         print("** class doesn't exist **")
         return False
     if len(args) < 2 and check_id:
