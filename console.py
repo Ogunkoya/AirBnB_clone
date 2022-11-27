@@ -57,8 +57,7 @@ class HBNBCommand(cmd.Cmd):
                     return "{} {} {} {}".format(
                         match_tuple[1], match_tuple[0],
                         re.sub("[\"\']", "", args[0]),
-
-                       re.sub("\'", "\"", match_json[0]))
+                        re.sub("\'", "\"", match_json[0]))
                 return "{} {} {} {} {}".format(
                     match_tuple[1], match_tuple[0],
                     re.sub("[\"\']", "", args[0]),
@@ -138,8 +137,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            print(["{}".format(str(v))
-                 for _, v in all_objs.items() if type(v).__name__ == args[0]])
+            print(["{}".format(str(v)) for _, v in
+                  all_objs.items() if type(v).__name__ == args[0]])
             return
 
     def do_update(self, arg: str):
@@ -178,67 +177,63 @@ class HBNBCommand(cmd.Cmd):
             setattr(req_instance, args[2], parse_str(value_list[0]))
         storage.save()
 
-
-def validate_classname(args, check_id=False):
-    """Runs checks on args to validate classname entry.
-    """
-    if len(args) < 1:
-        print("** class name missing **")
-        return False
-    if args[0] not in current_classes.keys():
-        print("** class doesn't exist **")
-        return False
-    if len(args) < 2 and check_id:
-        print("** instance id missing **")
-        return False
-    return True
-
-
-def validate_attrs(args):
-    """Runs checks on args to validate classname attributes and values.
-    """
-    if len(args) < 3:
-        print("** attribute name missing **")
-        return False
-    if len(args) < 4:
-        print("** value missing **")
-        return False
-    return True
-
-
-def is_float(x):
-    """Checks if `x` is float.
-    """
-    try:
-        a = float(x)
-    except (TypeError, ValueError):
-        return False
-    else:
+    def validate_classname(args, check_id=False):
+        """Runs checks on args to validate classname entry.
+        """
+        if len(args) < 1:
+            print("** class name missing **")
+            return False
+        if args[0] not in current_classes.keys():
+            print("** class doesn't exist **")
+            return False
+        if len(args) < 2 and check_id:
+            print("** instance id missing **")
+            return False
         return True
 
+    def validate_attrs(args):
+        """Runs checks on args to validate classname attributes and values.
+        """
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return False
+        if len(args) < 4:
+            print("** value missing **")
+            return False
+        return True
 
-def is_int(x):
-    """Checks if `x` is int.
-    """
-    try:
-        a = float(x)
-        b = int(a)
-    except (TypeError, ValueError):
-        return False
-    else:
-        return a == b
+    def is_float(x):
+        """Checks if `x` is float.
+        """
+        try:
+            a = float(x)
+        except (TypeError, ValueError):
+            return False
+        else:
+            return True
 
-def parse_str(arg):
-    """Parse `arg` to an `int`, `float` or `string`.
-    """
-    parsed = re.sub("\"", "", arg)
+    def is_int(x):
+        """Checks if `x` is int.
+        """
+        try:
+            a = float(x)
+            b = int(a)
+        except (TypeError, ValueError):
+            return False
+        else:
+            return a == b
 
-    if is_int(parsed):
-        return int(parsed)
-    elif is_float(parsed):
-        return float(parsed)
-    else:
-        return arg
+    def parse_str(arg):
+        """Parse `arg` to an `int`, `float` or `string`.
+        """
+        parsed = re.sub("\"", "", arg)
+
+        if is_int(parsed):
+            return int(parsed)
+        elif is_float(parsed):
+            return float(parsed)
+        else:
+            return arg
 
 
 if __name__ == "__main__":
