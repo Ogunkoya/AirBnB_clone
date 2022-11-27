@@ -9,8 +9,15 @@ import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
 
-current_classes = {'BaseModel': BaseModel, 'User': User}
+classes = {'BaseModel': BaseModel, 'User': User,
+           'Amenity': Amenity, 'Place': Place,
+           'City': City, 'State': State, 'Reveiw': Review}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -81,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         if not validate_classname(args):
             return
 
-        new_obj = current_classes[args[0]]()
+        new_obj = classes[args[0]]()
         new_obj.save()
         print(new_obj.id)
 
@@ -126,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print(["{}".format(str(v)) for _, v in all_objs.items()])
             return
-        if args[0] not in current_classes.keys():
+        if args[0] not in classes.keys():
             print("** class doesn't exist **")
             return
         else:
@@ -170,63 +177,68 @@ class HBNBCommand(cmd.Cmd):
             setattr(req_instance, args[2], parse_str(value_list[0]))
         storage.save()
 
-    def validate_classname(args, check_id=False):
-        """Runs checks on args to validate classname entry.
-        """
-        if len(args) < 1:
-            print("** class name missing **")
-            return False
-        if args[0] not in current_classes.keys():
-            print("** class doesn't exist **")
-            return False
-        if len(args) < 2 and check_id:
-            print("** instance id missing **")
-            return False
+
+def validate_classname(args, check_id=False):
+    """Runs checks on args to validate classname entry.
+    """
+    if len(args) < 1:
+        print("** class name missing **")
+        return False
+    if args[0] not in classes.keys():
+        print("** class doesn't exist **")
+        return False
+    if len(args) < 2 and check_id:
+        print("** instance id missing **")
+        return False
+    return True
+
+
+def validate_attrs(args):
+    """Runs checks on args to validate classname attributes and values.
+    """
+    if len(args) < 3:
+        print("** attribute name missing **")
+        return False
+    if len(args) < 4:
+        print("** value missing **")
+        return False
+    return True
+
+
+def is_float(x):
+    """Checks if `x` is float.
+    """
+    try:
+        a = float(x)
+    except (TypeError, ValueError):
+        return False
+    else:
         return True
 
-    def validate_attrs(args):
-        """Runs checks on args to validate classname attributes and values.
-        """
-        if len(args) < 3:
-            print("** attribute name missing **")
-            return False
-        if len(args) < 4:
-            print("** value missing **")
-            return False
-        return True
 
-    def is_float(x):
-        """Checks if `x` is float.
-        """
-        try:
-            a = float(x)
-        except (TypeError, ValueError):
-            return False
-        else:
-            return True
+def is_int(x):
+    """Checks if `x` is int.
+    """
+    try:
+        a = float(x)
+        b = int(a)
+    except (TypeError, ValueError):
+        return False
+    else:
+        return a == b
 
-    def is_int(x):
-        """Checks if `x` is int.
-        """
-        try:
-            a = float(x)
-            b = int(a)
-        except (TypeError, ValueError):
-            return False
-        else:
-            return a == b
 
-    def parse_str(arg):
-        """Parse `arg` to an `int`, `float` or `string`.
-        """
-        parsed = re.sub("\"", "", arg)
+def parse_str(arg):
+    """Parse `arg` to an `int`, `float` or `string`.
+    """
+    parsed = re.sub("\"", "", arg)
 
-        if is_int(parsed):
-            return int(parsed)
-        elif is_float(parsed):
-            return float(parsed)
-        else:
-            return arg
+    if is_int(parsed):
+        return int(parsed)
+    elif is_float(parsed):
+        return float(parsed)
+    else:
+        return arg
 
 
 if __name__ == "__main__":
