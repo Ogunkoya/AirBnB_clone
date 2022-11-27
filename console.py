@@ -170,6 +170,7 @@ class HBNBCommand(cmd.Cmd):
             setattr(req_instance, args[2], parse_str(value_list[0]))
         storage.save()
 
+
 def validate_classname(args, check_id=False):
     """Runs checks on args to validate classname entry.
     """
@@ -184,6 +185,7 @@ def validate_classname(args, check_id=False):
         return False
     return True
 
+
 def validate_attrs(args):
     """Runs checks on args to validate classname attributes and values.
     """
@@ -195,6 +197,7 @@ def validate_attrs(args):
         return False
     return True
 
+
 def is_float(x):
     """Checks if `x` is float.
     """
@@ -204,6 +207,7 @@ def is_float(x):
         return False
     else:
         return True
+
 
 def is_int(x):
     """Checks if `x` is int.
@@ -215,6 +219,7 @@ def is_int(x):
         return False
     else:
         return a == b
+
 
 def parse_str(arg):
     """Parse `arg` to an `int`, `float` or `string`.
