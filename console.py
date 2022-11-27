@@ -16,8 +16,11 @@ class HBNBCommand(cmd.Cmd):
     """ Holberton command prompt to access models data """
     prompt = "(hbnb)"
 
+    def do_help(self, arg):
+        """To get help on a command, type help"""
+        return super().do_help(arg)
 
-    def do_quit(self, arg):
+    def do_quit(selfi, arg):
         """ Close program and saves safely data """
         return True
 
