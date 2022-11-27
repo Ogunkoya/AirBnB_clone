@@ -43,7 +43,7 @@ class FileStorage:
         deserializes the JSON file to __objects only if the JSON
         file exists; otherwise, does nothing
         """
-        current_classes = {'BaseModel': BaseModel, 'User': User,
+        classes = {'BaseModel': BaseModel, 'User': User,
                            'Amenity': Amenity, 'City': City, 'State': State,
                            'Place': Place, 'Review': Review}
 
@@ -61,5 +61,5 @@ class FileStorage:
                 return
 
             FileStorage.__objects = {
-                k: current_classes[k.split('.')[0]](**v)
+                k: classes[k.split('.')[0]](**v)
                 for k, v in deserialized.items()} 
