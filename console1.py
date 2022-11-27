@@ -16,8 +16,8 @@ from models.review import Review
 from models.state import State
 
 classes = {'BaseModel': BaseModel, 'User': User,
-           'Amenity': Amenity, 'Place': Place,
-           'City': City, 'State': State, 'Reveiw': Review}
+           'Amenity': Amenity, 'City': City,
+           'State': State, 'Place': Place, 'Reveiw': Review}
 
 
 class HBNBCommand(cmd.Cmd):
