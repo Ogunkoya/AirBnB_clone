@@ -13,8 +13,8 @@ from models.state import State
 from models.user import User
 
 
-classes = {"BaseModel": BaseModel}
-
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""
